@@ -7,6 +7,7 @@ class Post(models.Model):
     slug = models.SlugField(unique=True, blank=True, null=True)
     title = models.CharField(max_length=400)
     text = models.TextField()
+    image_1 = models.ImageField(upload_to='static/images/', null=True, blank=True)
     date = models.DateField(auto_now=True) #datefield only used to store year
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     likes = models.ManyToManyField(User, related_name='post_likes', null=True, blank=True)
@@ -18,13 +19,7 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-#
-# class PostImages(models.Model):
-#     post = models.ForeignKey(Post, related_name='images', on_delete=models.CASCADE)
-#     image = models.ImageField(null=True)
-#
-#     def __str__(self):
-#         return f"photo for {self.post}"
+
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
